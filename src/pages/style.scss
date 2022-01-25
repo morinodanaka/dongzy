@@ -1,0 +1,9 @@
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  input[type="submit"] {
+    display: flex;
+    justify-content: center;
+  }
+}

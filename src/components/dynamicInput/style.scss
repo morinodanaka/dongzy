@@ -1,0 +1,27 @@
+.dynamicInput.row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  .fieldWrp {
+    display: flex;
+    flex-direction: column;
+    .flieldData {
+      display: flex;
+      flex-direction: row;
+      min-width: 200px;
+      margin-bottom: 15px;
+      input {
+        height: 40px;
+        border-radius: 4px;
+        padding-left: 10px;
+        color: #333;
+        margin-left: 5px;
+      }
+    }
+  }
+}
+$body-color: red;
+
+body {
+  color: $body-color;
+}
