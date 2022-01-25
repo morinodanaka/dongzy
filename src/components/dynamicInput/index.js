@@ -4,29 +4,7 @@ import "./style.scss";
 
 function DynamicInput({ name, rules, label, children, ...props }) {
   const [counter, setConter] = useState(2);
-  const [values, setValues] = useState(
-    props.value
-      ? props.value
-      : {
-          0: {
-            dong: {
-              0: { thing: "moz", price: "1000" },
-              1: { thing: "sib", price: "2000" },
-            },
-
-            name: "alireza",
-          },
-
-          1: {
-            dong: {
-              0: { thing: "an", price: "1000" },
-              1: { thing: "goh", price: "3000" },
-            },
-
-            name: "tina",
-          },
-        }
-  );
+  const [values, setValues] = useState(props.value ? props.value : {});
 
   const handleAdd = () => {
     setConter(counter + 1);
@@ -54,7 +32,7 @@ function DynamicInput({ name, rules, label, children, ...props }) {
       ...values,
       [rowIndex]: {
         ...values[rowIndex],
-        dong: data,
+        items: data,
       },
     });
   };
@@ -68,7 +46,7 @@ function DynamicInput({ name, rules, label, children, ...props }) {
   return (
     <div className="dynamicInput row">
       <label>{label}</label>:
-      <Button type={"add"} onPress={handleAdd}>
+      <Button type={"add"} onClick={handleAdd}>
         +
       </Button>
       <div className="fieldWrp">
@@ -78,7 +56,7 @@ function DynamicInput({ name, rules, label, children, ...props }) {
               {rows.length > 1 && (
                 <Button
                   type={"remove"}
-                  onPress={() => handleRemove(counterIndex)}
+                  onClick={() => handleRemove(counterIndex)}
                 >
                   -
                 </Button>
@@ -96,7 +74,8 @@ function DynamicInput({ name, rules, label, children, ...props }) {
                           }
                         : {
                             value:
-                              values[counterIndex] && values[counterIndex].dong,
+                              values[counterIndex] &&
+                              values[counterIndex].items,
                             onChange: (values) =>
                               handleOnchangeDynamic(values, counterIndex),
                           }

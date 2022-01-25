@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.scss";
-export const Button = ({ children, onPress, type, ...props }) => {
+export const Button = ({ children, type, ...props }) => {
   const handleType = () => {
     switch (type) {
       case "submit":
@@ -30,7 +30,7 @@ export const Button = ({ children, onPress, type, ...props }) => {
   };
 
   return (
-    <button style={handleType()} onClick={onPress}>
+    <button style={handleType()} {...props}>
       {children}
     </button>
   );
