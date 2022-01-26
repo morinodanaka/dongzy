@@ -2,30 +2,13 @@
 import React, { useState } from "react";
 import { Button } from "../components/button/button";
 import DynamicInput from "../components/dynamicInput";
+import Input from "../components/input";
 import { rules } from "../utils/rules";
 import "./style.scss";
 
 export default function Example() {
   const [values, setValues] = useState();
-  const [initialState, setInitialState] = useState({
-    0: {
-      items: {
-        0: { thing: "moz", price: "1000" },
-        1: { thing: "sib", price: "2000" },
-      },
 
-      name: "alireza",
-    },
-
-    1: {
-      items: {
-        0: { thing: "an", price: "1000" },
-        1: { thing: "goh", price: "3000" },
-      },
-
-      name: "tina",
-    },
-  });
   const onSubmit = () => {
     const userVal = Object.values(values).reduce((total, acc) => {
       const priceVal = Object.values(acc.items).reduce((sum, item) => {
@@ -54,14 +37,13 @@ export default function Example() {
       <DynamicInput
         onChange={dataCacher}
         rules={rules}
-        value={initialState}
-        label={"name"}
+        value={values}
         name={["name"]}
       >
-        <input className="bg-slate-400" />
-        <DynamicInput name={["thing", "price"]} rules={rules} label={"thing"}>
-          <input className="bg-slate-400" />
-          <input className="bg-slate-400" />
+        <Input type={"text"} label={"name"} />
+        <DynamicInput name={["thing", "price"]} rules={rules}>
+          <Input type={"text"} label={"thing"} />
+          <Input type={"text"} label={"price"} />
         </DynamicInput>
       </DynamicInput>
 

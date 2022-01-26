@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Button } from "../button/button";
 import "./style.scss";
 
-function DynamicInput({ name, rules, label, children, ...props }) {
-  const [counter, setConter] = useState(2);
+function DynamicInput({ name, rules, labels, children, ...props }) {
+  const [counter, setConter] = useState(1);
   const [values, setValues] = useState(props.value ? props.value : {});
 
   const handleAdd = () => {
@@ -11,10 +11,10 @@ function DynamicInput({ name, rules, label, children, ...props }) {
   };
   const handleRemove = (deletingIndex) => {
     setConter(counter - 1);
-    const initialValues = Object.values(values);
-    initialValues.splice(deletingIndex, 1);
-    const initialValuesObj = Object.assign({}, initialValues);
-    setValues(initialValuesObj);
+    const values = Object.values(values);
+    values.splice(deletingIndex, 1);
+    const valuesObj = Object.assign({}, values);
+    setValues(valuesObj);
   };
   const handleOnchange = (e, counterIndex, nameIndex) => {
     // onChange Inputs d1 & d2
@@ -45,7 +45,10 @@ function DynamicInput({ name, rules, label, children, ...props }) {
   const rows = Array.from(new Array(counter));
   return (
     <div className="dynamicInput row">
-      <label>{label}</label>:
+      {labels &&
+        labels.map((lab) => {
+          return <p>{lab}</p>;
+        })}
       <Button type={"add"} onClick={handleAdd}>
         +
       </Button>
