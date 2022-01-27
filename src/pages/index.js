@@ -8,30 +8,33 @@ import "./style.scss";
 
 export default function Example() {
   const [values, setValues] = useState();
-
+  const [finalDong, setFinalDong] = useState();
   const onSubmit = () => {
     const userVal = Object.values(values).reduce((total, acc) => {
       const priceVal = Object.values(acc.items).reduce((sum, item) => {
         return sum + Number(item.price);
       }, 0);
-
-      total[acc.name] = priceVal;
-      total["total"] = total["total"] ? total["total"] + priceVal : priceVal;
-      total["usersCount"] = total["usersCount"] ? total["usersCount"] + 1 : 1;
+      if (acc.name) {
+        total[acc.name] = priceVal;
+        total["total"] = total["total"] ? total["total"] + priceVal : priceVal;
+        total["usersCount"] = total["usersCount"] ? total["usersCount"] + 1 : 1;
+      }
       return total;
     }, {});
-    userVal.dong = userVal.total / userVal.usersCount;
-    userVal.userDong = Object.values(values).map((val) => {
-      return { [val.name]: userVal[val.name] - userVal.dong };
-    });
-    console.log(userVal, "userVal");
+    userVal.dong = Math.floor(userVal.total / userVal.usersCount);
+    userVal.userDong = Object.values(values).reduce((total, val) => {
+      if (val.name) {
+        total.push({ [val.name]: userVal[val.name] - userVal.dong });
+      }
+      return total;
+    }, []);
+    setFinalDong(userVal);
   };
   const dataCacher = (data) => {
-    console.log(data, "data");
     setValues(data);
   };
 
-  console.log(values, "values");
+  console.log(finalDong, "finalDong");
   return (
     <>
       <DynamicInput
@@ -47,7 +50,9 @@ export default function Example() {
         </DynamicInput>
       </DynamicInput>
 
-      <Button onClick={onSubmit}>submit</Button>
+      <Button type={"submit"} onClick={onSubmit}>
+        submit
+      </Button>
     </>
   );
 }

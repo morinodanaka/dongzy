@@ -1,11 +1,11 @@
 import React from "react";
-
-function Input(props) {
+import "./style.scss";
+function Input({ label, ...props }) {
   return (
     <>
-      <div>
-        <label>{props.label}:</label>
-        <input className="bg-slate-400" type={props.type} />
+      <div className="inputWrp">
+        <label>{label}:</label>
+        <input {...props} className="bg-slate-400" />
       </div>
     </>
   );

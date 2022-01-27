@@ -45,10 +45,6 @@ function DynamicInput({ name, rules, labels, children, ...props }) {
   const rows = Array.from(new Array(counter));
   return (
     <div className="dynamicInput row">
-      {labels &&
-        labels.map((lab) => {
-          return <p>{lab}</p>;
-        })}
       <Button type={"add"} onClick={handleAdd}>
         +
       </Button>
@@ -68,7 +64,7 @@ function DynamicInput({ name, rules, labels, children, ...props }) {
                 ? children.map((child, i) => {
                     return React.cloneElement(
                       child,
-                      child.type === "input"
+                      child.type.name === "Input"
                         ? {
                             value:
                               values[counterIndex] &&
